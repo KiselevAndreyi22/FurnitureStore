@@ -1,5 +1,4 @@
 package com.example.demo.controller;
-
 import com.example.demo.dto.request.SignInRequest;
 import com.example.demo.dto.request.SignUpRequest;
 import com.example.demo.dto.response.JwtResponse;
@@ -13,7 +12,6 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import com.example.demo.model.User;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -31,8 +29,9 @@ public class AuthController {
 
     @PostMapping("/login")
     public ResponseEntity<JwtResponse> login(@RequestBody SignInRequest signInRequest) throws Exception {
+        User user = userService.getByUsernameOrEmail(signInRequest.getUsernameOrEmail(), signInRequest.getUsernameOrEmail());
         Authentication authentication = authenticationManager.authenticate(
-                new UsernamePasswordAuthenticationToken(signInRequest.getUsername(), signInRequest.getPassword()));
+                new UsernamePasswordAuthenticationToken(user.getUsername(), signInRequest.getPassword()));
 
         if (!authentication.isAuthenticated()) {
             throw new RuntimeException("Authentication failed.");
@@ -40,9 +39,7 @@ public class AuthController {
 
         SecurityContextHolder.getContext().setAuthentication(authentication);
 
-        UserDetails userDetails = userService.getByUsername(signInRequest.getUsername());
-
-        String token = jwtService.generateToken(userDetails);
+        String token = jwtService.generateToken(user);
 
         return ResponseEntity.ok(new JwtResponse(token));
     }
