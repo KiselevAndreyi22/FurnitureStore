@@ -1,9 +1,11 @@
 package com.example.demo.service;
 
 import com.example.demo.model.User;
+import com.example.demo.repository.TokenRepository;
 import io.jsonwebtoken.*;
 import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
@@ -13,14 +15,29 @@ import java.util.Date;
 import java.util.function.Function;
 
 @Service
+@RequiredArgsConstructor
 public class JwtService {
+
+    private final TokenRepository tokenRepository;
+
     @Value("${jwt.secret}")
     private String secret;
 
-    @Value("${jwt.expiration}")
-    private Long expiration;
+    @Value("${jwt.access_token_expiration}")
+    private Long accesTokenExpiration;
 
-    public String generateToken(User user) {
+    @Value("${jwt.refresh_token_expiration}")
+    private Long refreshTokenExpiration;
+
+    public String generateAccesToken(User user) {
+        return generateToken(user, accesTokenExpiration);
+    }
+
+    public String generateRefreshToken(User user){
+        return generateToken(user, refreshTokenExpiration);
+    }
+
+    public String generateToken(User user, Long expiration) {
         return Jwts.builder()
                 .subject(user.getUsername())
                 .issuedAt(new Date(System.currentTimeMillis()))
@@ -36,7 +53,15 @@ public class JwtService {
 
     public Boolean validateToken(String token, UserDetails userDetails) {
         final String username = extractUsername(token);
-        return (username.equals(userDetails.getUsername()) && !isTokenExpired(token));
+
+        boolean valid = tokenRepository.findByAccessToken(token).isPresent();
+        return (username.equals(userDetails.getUsername()) && !isTokenExpired(token)) && valid;
+    }
+
+    public Boolean validateRefreshToken(String token, UserDetails userDetails) {
+        final String username = extractUsername(token);
+        boolean valid = tokenRepository.findByRefreshToken(token).isPresent();
+        return (username.equals(userDetails.getUsername()) && !isRefreshTokenExpired(token)) && valid;
     }
 
     public String extractUsername(String token) {
@@ -63,6 +88,10 @@ public class JwtService {
     }
 
     private boolean isTokenExpired(String token) {
+        return extractExpiration(token).before(new Date());
+    }
+
+    private boolean isRefreshTokenExpired(String token) {
         return extractExpiration(token).before(new Date());
     }
 

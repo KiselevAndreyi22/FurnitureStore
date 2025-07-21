@@ -1,9 +1,12 @@
 package com.example.demo.controller;
+import com.example.demo.dto.request.RefreshTokenRequest;
 import com.example.demo.dto.request.SignInRequest;
 import com.example.demo.dto.request.SignUpRequest;
 import com.example.demo.dto.response.JwtResponse;
 import com.example.demo.model.Role;
+import com.example.demo.repository.UserRepository;
 import com.example.demo.service.JwtService;
+import com.example.demo.service.TokenService;
 import com.example.demo.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -26,6 +29,7 @@ public class AuthController {
     private final JwtService jwtService;
     private final UserService userService;
     private final PasswordEncoder passwordEncoder;
+    private final TokenService tokenService;
 
     @PostMapping("/login")
     public ResponseEntity<JwtResponse> login(@RequestBody SignInRequest signInRequest) throws Exception {
@@ -39,13 +43,17 @@ public class AuthController {
 
         SecurityContextHolder.getContext().setAuthentication(authentication);
 
-        String token = jwtService.generateToken(user);
+        String accesToken = jwtService.generateAccesToken(user);
 
-        return ResponseEntity.ok(new JwtResponse(token));
+        String refreshToken = jwtService.generateRefreshToken(user);
+
+        tokenService.saveToken(accesToken, refreshToken, user);
+
+        return ResponseEntity.ok(new JwtResponse(accesToken, refreshToken));
     }
 
     @PostMapping("/sign-up")
-    public ResponseEntity<JwtResponse> signUp(@RequestBody SignUpRequest signUpRequest) throws Exception {
+    public ResponseEntity<String> signUp(@RequestBody SignUpRequest signUpRequest) throws Exception {
        User user = User.builder()
                 .username(signUpRequest.getUsername())
                 .email(signUpRequest.getEmail())
@@ -55,7 +63,26 @@ public class AuthController {
 
         userService.create(user);
 
-        var token = jwtService.generateToken(user);
-        return ResponseEntity.ok(new JwtResponse(token));
+        return ResponseEntity.ok("Succes registered");
+    }
+
+    @PostMapping("/refresh")
+    public ResponseEntity<?> refreshToken(@RequestBody RefreshTokenRequest refreshTokenRequest) throws Exception {
+        String requestRefreshTokenRefreshToken = refreshTokenRequest.getRefreshToken();
+
+        String username = jwtService.extractUsername(requestRefreshTokenRefreshToken);
+
+        User user = userService.getByUsername(username);
+
+        if(!jwtService.validateRefreshToken(requestRefreshTokenRefreshToken, user)) {
+            return ResponseEntity.badRequest().body("Invalid refresh token");
+        }
+
+        String accesToken = jwtService.generateAccesToken(user);
+        String refreshToken = jwtService.generateRefreshToken(user);
+
+        tokenService.saveToken(accesToken, refreshToken, user);
+
+        return ResponseEntity.ok(new JwtResponse(accesToken, refreshToken));
     }
 }
