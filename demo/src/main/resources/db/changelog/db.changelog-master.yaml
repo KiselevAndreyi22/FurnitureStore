@@ -3,3 +3,5 @@ databaseChangeLog:
       file: db/changelog/19-07-25-2248-users.yaml
   - include:
       file: db/changelog/21-07-25-1535-add-table-token.yaml
+  - include:
+      file: db/changelog/23-07-25-1356-drop-colum-acces-token-in-tokens.yaml

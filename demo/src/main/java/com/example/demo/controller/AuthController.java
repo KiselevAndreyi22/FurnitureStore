@@ -4,7 +4,6 @@ import com.example.demo.dto.request.SignInRequest;
 import com.example.demo.dto.request.SignUpRequest;
 import com.example.demo.dto.response.JwtResponse;
 import com.example.demo.model.Role;
-import com.example.demo.repository.UserRepository;
 import com.example.demo.service.JwtService;
 import com.example.demo.service.TokenService;
 import com.example.demo.service.UserService;
@@ -47,7 +46,7 @@ public class AuthController {
 
         String refreshToken = jwtService.generateRefreshToken(user);
 
-        tokenService.saveToken(accesToken, refreshToken, user);
+        tokenService.saveToken(refreshToken, user);
 
         return ResponseEntity.ok(new JwtResponse(accesToken, refreshToken));
     }
@@ -81,7 +80,8 @@ public class AuthController {
         String accesToken = jwtService.generateAccesToken(user);
         String refreshToken = jwtService.generateRefreshToken(user);
 
-        tokenService.saveToken(accesToken, refreshToken, user);
+        tokenService.removeToken(user);
+        tokenService.saveToken(refreshToken, user);
 
         return ResponseEntity.ok(new JwtResponse(accesToken, refreshToken));
     }
