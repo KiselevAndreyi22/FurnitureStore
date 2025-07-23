@@ -1,0 +1,10 @@
+databaseChangeLog:
+  - changeSet:
+      id: drop-column-acces-token
+      author: kisliashka100
+      changes:
+        - dropColumn:
+            tableName: tokens
+            columns:
+              - column:
+                  name: access_token
