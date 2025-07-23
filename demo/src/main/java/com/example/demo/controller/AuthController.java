@@ -85,4 +85,15 @@ public class AuthController {
 
         return ResponseEntity.ok(new JwtResponse(accesToken, refreshToken));
     }
+
+    @PostMapping("/logout")
+    public ResponseEntity<?> logout() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+
+        User user = (User) authentication.getPrincipal();
+
+        tokenService.removeToken(user);
+
+        return ResponseEntity.ok("Successfully logged out");
+    }
 }
