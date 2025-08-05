@@ -1,0 +1,25 @@
+databaseChangeLog:
+  - changeSet:
+      id: add-table-products
+      author: kisliashka100
+      changes:
+        - createTable:
+            tableName: products
+            columns:
+              - column:
+                  name: id
+                  type: bigint
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+              - column:
+                  name: name
+                  type: VARCHAR(64)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: price
+                  type: INT
+              - column:
+                  name: description
+                  type: VARCHAR(64)
