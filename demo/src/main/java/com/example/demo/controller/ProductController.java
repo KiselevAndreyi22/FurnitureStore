@@ -17,7 +17,7 @@ public class ProductController {
     private final ProductService productService;
 
     @PostMapping("/create")
-    public ResponseEntity<String> signUp(@RequestBody CreateProductRequest createProductRequest) throws Exception {
+    public ResponseEntity<Product> createProduct(@RequestBody CreateProductRequest createProductRequest) throws Exception {
         Product product = Product.builder()
                 .name(createProductRequest.getName())
                 .description(createProductRequest.getDescription())
@@ -26,6 +26,6 @@ public class ProductController {
 
         productService.create(product);
 
-        return ResponseEntity.ok("Product created");
+        return ResponseEntity.ok(product);
     }
 }

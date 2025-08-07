@@ -1,7 +1,6 @@
 import {Component, inject} from '@angular/core';
 import { CommonModule } from '@angular/common';
 import {Router, RouterModule} from '@angular/router';
-import { ProjectListComponent } from '../project/project-list/project-list.component';
 import { IUser, IUserStats } from '../../core/interface/user.interface';
 import { AuthService } from '../../core/services/auth.service';
 import { IProfile, ProfileService } from '../../core/services/profile.service';
@@ -9,7 +8,7 @@ import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-dashboard',
-  imports: [CommonModule, RouterModule, ProjectListComponent],
+  imports: [CommonModule, RouterModule],
   templateUrl: './dashboard.component.html',
   styleUrl: './dashboard.component.scss',
 })
