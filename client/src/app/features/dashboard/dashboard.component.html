@@ -13,4 +13,18 @@
       </div>
     </section>
   </div>
+  <div class="own-products">
+  <div class="create-product-wrapper">
+    <a [routerLink]="['/create-product']">Создать продукт</a>
+  </div>
+  <h2>Мои объявления</h2>
+  <div class="products-list">
+    <div *ngFor="let product of products" class="product-card">
+      <h3>{{ product.name }}</h3>
+      <p>{{ product.description }}</p>
+      <p><b>Цена:</b> {{ product.price }}</p>
+      <button (click)="deleteProduct(product.id)">Удалить продукт</button>
+    </div>
+</div>
+</div>
 </div>

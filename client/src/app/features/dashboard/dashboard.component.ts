@@ -4,7 +4,7 @@ import {Router, RouterModule} from '@angular/router';
 import { IUser, IUserStats } from '../../core/interface/user.interface';
 import { AuthService } from '../../core/services/auth.service';
 import { IProfile, ProfileService } from '../../core/services/profile.service';
-import { Observable } from 'rxjs';
+import {ProductService} from '../../core/services/product.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -31,15 +31,30 @@ export class DashboardComponent {
     avatarUrl: 'assets/avatar.jpg',
   };
 
-  userStats: IUserStats = {
-    activeProjects: 5,
-    completedProjects: 12,
-    overdueTasks: 3,
-    completedTasks: 87,
-  };
+  products: any[] = [];
 
-  activity = {
-    tasksThisWeek: 2,
-    chartData: [1, 2, 1.5, 2, 1.8, 2.2, 1.9],
-  };
+  constructor(private productService: ProductService) {}
+
+  ngOnInit() {
+    this.loadProducts();
+  }
+
+  loadProducts() {
+    this.productService.getProducts().subscribe({
+      next: (data) => this.products = data,
+      error: (err) => console.error(err)
+    });
+  }
+
+  deleteProduct(id: number) {
+    this.productService.deleteProduct(id).subscribe({
+      next: () => {
+        this.products = this.products.filter(product => product.id !== id);
+      },
+      error: (err) => {
+        console.error('Ошибка при удалении:', err);
+      }
+    });
+  }
 }
+
