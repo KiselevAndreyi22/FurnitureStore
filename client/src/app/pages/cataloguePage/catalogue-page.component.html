@@ -1,16 +1,18 @@
 <head>
   <meta charset="UTF-8">
-  <title>Главная страница</title>
+  <title>Страница каталога</title>
 </head>
 <body>
 <h1>Каталог</h1>
-<p>
+<div class="create-product-wrapper">
   <a [routerLink]="['/create-product']">Создать продукт</a>
-</p>
-<div *ngFor="let product of products">
-  <h3>{{ product.name }}</h3>
-  <p>{{ product.description }}</p>
-  <p><b>Цена:</b> {{ product.price }}</p>
-  <button (click)="deleteProduct(product.id)">Удалить продукт</button>
 </div>
-</body>
+<h2>Мои объявления</h2>
+<div class="products-list">
+  <div *ngFor="let product of products" class="product-card">
+    <h3>{{ product.name }}</h3>
+    <p>{{ product.description }}</p>
+    <p><b>Цена:</b> {{ product.price }}</p>
+    <button (click)="deleteProduct(product.id)">Удалить продукт</button>
+  </div>
+</div>

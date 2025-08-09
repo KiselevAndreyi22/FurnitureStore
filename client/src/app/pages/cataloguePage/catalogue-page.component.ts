@@ -7,7 +7,7 @@ import {ProductService} from '../../core/services/product.service';
   selector: 'app-catalogue-page',
   templateUrl: './catalogue-page.component.html',
   imports: [RouterLink, CommonModule],
-  //styleUrl: './catalogue-page.component.scss',
+  styleUrl: './catalogue-page.component.scss',
 })
 export class CataloguePageComponent {
   products: any[] = [];
