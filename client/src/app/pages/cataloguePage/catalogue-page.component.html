@@ -7,4 +7,10 @@
 <p>
   <a [routerLink]="['/create-product']">Создать продукт</a>
 </p>
+<div *ngFor="let product of products">
+  <h3>{{ product.name }}</h3>
+  <p>{{ product.description }}</p>
+  <p><b>Цена:</b> {{ product.price }}</p>
+  <button (click)="deleteProduct(product.id)">Удалить продукт</button>
+</div>
 </body>

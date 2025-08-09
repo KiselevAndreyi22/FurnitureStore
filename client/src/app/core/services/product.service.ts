@@ -1,19 +1,25 @@
 import { HttpClient } from '@angular/common/http';
-import { inject, Injectable, signal } from '@angular/core';
-import {catchError, Observable, tap, throwError} from 'rxjs';
-import {CookieService} from 'ngx-cookie-service';
-import {Router} from '@angular/router';
+import { Injectable } from '@angular/core';
+import {Observable} from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
 })
 export class ProductService {
-  private apiUrl = 'http://localhost:8080/api/products/create';
+  private baseApiUrl = 'http://localhost:8080/api/products';
 
   constructor(private http: HttpClient) {}
 
   createProduct(product: any): Observable<any> {
-    return this.http.post(this.apiUrl, product);
+    return this.http.post(`${this.baseApiUrl}/create`, product);
+  }
+
+  deleteProduct(id: number) {
+    return this.http.delete(`${this.baseApiUrl}/${id}`);
+  }
+
+  getProducts(): Observable<any[]> {
+    return this.http.get<any[]>('http://localhost:8080/api/products/all');
   }
 
 }
