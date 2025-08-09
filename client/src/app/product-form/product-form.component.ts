@@ -8,7 +8,7 @@ import {FormsModule} from '@angular/forms';
   imports: [
     FormsModule
   ],
-  //styleUrls: ['./product-form.compnent.scss']
+  styleUrls: ['./product-form.component.scss']
 })
 export class ProductFormComponent{
   product = {

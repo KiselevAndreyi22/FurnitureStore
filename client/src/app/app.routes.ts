@@ -6,6 +6,7 @@ import { LoginPageComponent} from './pages/authPages/loginPages/login-page.compo
 import { LayoutComponent} from './layout/layout.component';
 import { DashboardComponent} from './features/dashboard/dashboard.component';
 import { canActivateAuth } from './core/guards/auth.guard';
+import {CataloguePageComponent} from './pages/cataloguePage/catalogue-page.component';
 
 export const routes: Routes = [
   {
@@ -13,7 +14,8 @@ export const routes: Routes = [
     component: LayoutComponent,
     children: [
       { path: 'profile', component: DashboardComponent },
-      { path: 'catalogue', component: ProductFormComponent}
+      { path: 'catalogue', component: CataloguePageComponent },
+      { path: 'create-product', component: ProductFormComponent }
     ],
     canActivate: [canActivateAuth],
   },
