@@ -26,4 +26,8 @@ public class Product {
 
     @Column(name="description")
     private String description;
+
+    @ManyToOne
+    @JoinColumn(name = "create_user_id")
+    private User createUser;
 }

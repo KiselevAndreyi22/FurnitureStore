@@ -64,4 +64,7 @@ public class User implements UserDetails {
     @OneToMany(mappedBy = "user", fetch = FetchType.EAGER)
     private List<Token> tokens;
 
+    @OneToMany(mappedBy = "createUser", fetch = FetchType.EAGER)
+    private List<Product> createProducts;
+
 }

@@ -24,6 +24,10 @@ public class ProductService {
         productRepository.deleteById(id);
     }
 
+    public List<Product> getUserAllProducts(long userId) {
+        return productRepository.findByCreateUserId(userId);
+    }
+
     public List<Product> getAll() {
         return productRepository.findAll();
     }
