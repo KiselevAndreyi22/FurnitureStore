@@ -29,5 +29,6 @@ public class Product {
 
     @ManyToOne
     @JoinColumn(name = "create_user_id")
+
     private User createUser;
 }

@@ -40,7 +40,7 @@ export class DashboardComponent {
   }
 
   loadProducts() {
-    this.productService.getProducts().subscribe({
+    this.productService.getUserProducts().subscribe({
       next: (data) => this.products = data,
       error: (err) => console.error(err)
     });

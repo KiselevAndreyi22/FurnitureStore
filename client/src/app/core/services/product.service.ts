@@ -18,8 +18,11 @@ export class ProductService {
     return this.http.delete(`${this.baseApiUrl}/${id}`);
   }
 
-  getProducts(): Observable<any[]> {
-    return this.http.get<any[]>('http://localhost:8080/api/products/all');
+  getUserProducts(): Observable<any[]> {
+    return this.http.get<any[]>('http://localhost:8080/api/products/me');
   }
 
+  getAllProducts(): Observable<any[]> {
+    return this.http.get<any[]>('http://localhost:8080/api/products/all');
+  }
 }

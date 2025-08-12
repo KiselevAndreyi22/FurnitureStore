@@ -1,6 +1,7 @@
 package com.example.demo.controller;
 
 import com.example.demo.dto.request.CreateProductRequest;
+import com.example.demo.dto.response.ProductDto;
 import com.example.demo.dto.response.SuccessResponse;
 import com.example.demo.model.Product;
 import com.example.demo.model.User;
@@ -48,12 +49,23 @@ public class ProductController {
         return ResponseEntity.ok(new SuccessResponse("Проект удален", HttpStatus.OK));
     }
 
-    @GetMapping("/all")
-    public ResponseEntity<List<Product>> getAllProducts() {
+    @GetMapping("/me")
+    public ResponseEntity<List<Product>> getAllUserProducts() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         User user = (User) authentication.getPrincipal();
 
         List<Product> products = productService.getUserAllProducts(user.getId());
+        if (products == null) {
+            products = new ArrayList<>();
+        }
+        return ResponseEntity.ok(products);
+    }
+
+    @GetMapping("/all")
+    public ResponseEntity<List <ProductDto>> getAllProducts() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+
+        List<ProductDto> products = productService.getAllProducts();
         if (products == null) {
             products = new ArrayList<>();
         }
