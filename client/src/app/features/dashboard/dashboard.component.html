@@ -19,11 +19,14 @@
   </div>
   <h2>Мои объявления</h2>
   <div class="products-list">
-    <div *ngFor="let product of products" class="product-card">
-      <h3>{{ product.name }}</h3>
-      <p>{{ product.description }}</p>
-      <p><b>Цена:</b> {{ product.price }}</p>
-      <button (click)="deleteProduct(product.id)">Удалить продукт</button>
+    <div *ngFor="let productDto of products" class="product-card">
+      <img [src]="productDto.imageUrl || '/static/default.png'" alt="{{ productDto.name }}" class="product-image"
+           width="200"
+           height="150"/>
+      <h3>{{ productDto.name }}</h3>
+      <p>{{ productDto.description }}</p>
+      <p><b>Цена:</b> {{ productDto.price }}</p>
+      <button (click)="deleteProduct(productDto.id)">Удалить продукт</button>
     </div>
 </div>
 </div>

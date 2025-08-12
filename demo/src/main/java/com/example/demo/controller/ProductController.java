@@ -23,21 +23,22 @@ public class ProductController {
     private final ProductService productService;
 
     @PostMapping("/create")
-    public ResponseEntity<Product> createProduct(@RequestBody CreateProductRequest createProductRequest) throws Exception {
+    public ResponseEntity<ProductDto> createProduct(@RequestBody CreateProductRequest createProductRequest) throws Exception {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         User user = (User) authentication.getPrincipal();
-
 
         Product product = Product.builder()
                 .name(createProductRequest.getName())
                 .description(createProductRequest.getDescription())
                 .price(createProductRequest.getPrice())
                 .createUser(user)
+                .imageUrl("http://localhost:8080/default.png")
                 .build();
 
         productService.create(product);
 
-        return ResponseEntity.ok(product);
+        ProductDto productDto = productService.toDTO(product);
+        return ResponseEntity.ok(productDto);
     }
 
     @DeleteMapping("/{id}")
@@ -50,11 +51,11 @@ public class ProductController {
     }
 
     @GetMapping("/me")
-    public ResponseEntity<List<Product>> getAllUserProducts() {
+    public ResponseEntity<List<ProductDto>> getAllUserProducts() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         User user = (User) authentication.getPrincipal();
 
-        List<Product> products = productService.getUserAllProducts(user.getId());
+        List<ProductDto> products = productService.getUserAllProducts(user.getId());
         if (products == null) {
             products = new ArrayList<>();
         }

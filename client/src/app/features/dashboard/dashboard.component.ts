@@ -1,7 +1,7 @@
 import {Component, inject} from '@angular/core';
 import { CommonModule } from '@angular/common';
 import {Router, RouterModule} from '@angular/router';
-import { IUser, IUserStats } from '../../core/interface/user.interface';
+import { IUser } from '../../core/interface/user.interface';
 import { AuthService } from '../../core/services/auth.service';
 import { IProfile, ProfileService } from '../../core/services/profile.service';
 import {ProductService} from '../../core/services/product.service';
@@ -49,7 +49,7 @@ export class DashboardComponent {
   deleteProduct(id: number) {
     this.productService.deleteProduct(id).subscribe({
       next: () => {
-        this.products = this.products.filter(product => product.id !== id);
+        this.products = this.products.filter(productDto => productDto.id !== id);
       },
       error: (err) => {
         console.error('Ошибка при удалении:', err);

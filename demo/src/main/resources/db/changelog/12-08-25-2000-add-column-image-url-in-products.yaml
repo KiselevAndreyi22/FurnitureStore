@@ -1,0 +1,13 @@
+databaseChangeLog:
+  - changeSet:
+      id: add-image-url-in-products
+      author: kisliashka100
+    changes:
+        - addColumn:
+            tableName: products
+            columns:
+                          - column:
+                              name: image_url
+                              type: NVARCHAR(100)
+                              constraints:
+                              nullable: true

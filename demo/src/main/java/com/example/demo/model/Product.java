@@ -29,6 +29,8 @@ public class Product {
 
     @ManyToOne
     @JoinColumn(name = "create_user_id")
-
     private User createUser;
+
+    @Column(name = "image_url")
+    private String imageUrl;
 }

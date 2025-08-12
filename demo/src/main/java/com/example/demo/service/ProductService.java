@@ -20,6 +20,7 @@ public class ProductService {
     }
 
     public Product create(Product product) {
+
         return productRepository.save(product);
     }
 
@@ -27,8 +28,11 @@ public class ProductService {
         productRepository.deleteById(id);
     }
 
-    public List<Product> getUserAllProducts(long userId) {
-        return productRepository.findByCreateUserId(userId);
+    public List<ProductDto> getUserAllProducts(long userId) {
+        List<Product> products = productRepository.findByCreateUserId(userId);
+        return products.stream()
+                .map(this::toDTO)
+                .collect(Collectors.toList());
     }
 
     public List<ProductDto> getAllProducts() {
@@ -38,7 +42,7 @@ public class ProductService {
                 .collect(Collectors.toList());
     }
 
-    private ProductDto toDTO(Product product) {
+    public ProductDto toDTO(Product product) {
         UserDto userDto = new UserDto(product.getCreateUser());
         return new ProductDto(product);
     }
