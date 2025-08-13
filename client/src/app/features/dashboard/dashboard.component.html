@@ -26,7 +26,7 @@
       <h3>{{ productDto.name }}</h3>
       <p>{{ productDto.description }}</p>
       <p><b>Цена:</b> {{ productDto.price }}</p>
-      <button [routerLink]="['/update-product']">Редактировать</button>
+      <button [routerLink]="['/update-product', productDto.id]">Редактировать</button>
       <br>
       <button (click)="deleteProduct(productDto.id)">Удалить продукт</button>
     </div>

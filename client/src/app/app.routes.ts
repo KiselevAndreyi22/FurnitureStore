@@ -16,7 +16,7 @@ export const routes: Routes = [
       { path: 'profile', component: DashboardComponent },
       { path: 'catalogue', component: CataloguePageComponent },
       { path: 'create-product', component: ProductFormComponent },
-      { path: 'update-product', component: UpdateFormComponent }
+      { path: 'update-product/:id', component: UpdateFormComponent }
     ],
     canActivate: [canActivateAuth],
   },
