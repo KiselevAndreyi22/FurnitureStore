@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { IProduct } from '../interface/product.interface';
+import {IProduct, IProductUpdate} from '../interface/product.interface';
 
 @Injectable({
   providedIn: 'root',
@@ -25,5 +25,9 @@ export class ProductService {
 
   getAllProducts(): Observable<any[]> {
     return this.http.get<any[]>('http://localhost:8080/api/products/all');
+  }
+
+  updateProduct(id: number, productForm: IProductUpdate): Observable<any>{
+    return this.http.put<IProductUpdate>(`${this.baseApiUrl}/${id}`, productForm);
   }
 }

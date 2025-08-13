@@ -5,3 +5,9 @@ export interface IProduct {
   price: number;
   imageUrl?: string;
 }
+
+export interface IProductUpdate{
+  name?: string,
+  description?: string,
+  price?: number
+}

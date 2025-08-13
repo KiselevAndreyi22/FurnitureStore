@@ -47,5 +47,13 @@ public class ProductService {
         return new ProductDto(product);
     }
 
+    public Product updateById(Long id, ProductDto productDto) {
+        Product product = productRepository.findById(id).get();
+
+        product.setName(productDto.getName());
+        product.setDescription(productDto.getDescription());
+        product.setPrice(productDto.getPrice());
+        return productRepository.save(product);
+    }
 
 }

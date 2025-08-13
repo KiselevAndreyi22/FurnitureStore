@@ -72,4 +72,13 @@ public class ProductController {
         }
         return ResponseEntity.ok(products);
     }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<ProductDto> updateProduct(@PathVariable Long id, @RequestBody ProductDto productDto) throws Exception {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        User user = (User) authentication.getPrincipal();
+        productService.updateById(id, productDto);
+
+        return ResponseEntity.ok(productDto);
+    }
 }

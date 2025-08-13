@@ -1,4 +1,4 @@
-// или если создавал форму:
+import {UpdateFormComponent} from './pages/update-product-form/update-form.component';
 import { ProductFormComponent } from './product-form/product-form.component';
 import { Routes } from '@angular/router';
 import { RegisterPageComponent} from './pages/authPages/registerPages/register-page.component';
@@ -15,7 +15,8 @@ export const routes: Routes = [
     children: [
       { path: 'profile', component: DashboardComponent },
       { path: 'catalogue', component: CataloguePageComponent },
-      { path: 'create-product', component: ProductFormComponent }
+      { path: 'create-product', component: ProductFormComponent },
+      { path: 'update-product', component: UpdateFormComponent }
     ],
     canActivate: [canActivateAuth],
   },
