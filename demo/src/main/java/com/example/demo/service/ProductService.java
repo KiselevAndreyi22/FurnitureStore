@@ -2,6 +2,7 @@ package com.example.demo.service;
 
 import com.example.demo.dto.response.ProductDto;
 import com.example.demo.dto.response.UserDto;
+import com.example.demo.exception.ProductNotFoundException;
 import com.example.demo.model.Product;
 import com.example.demo.repository.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,11 +21,13 @@ public class ProductService {
     }
 
     public Product create(Product product) {
-
         return productRepository.save(product);
     }
 
     public void deleteById(Long id) {
+        if(!productRepository.existsById(id)) {
+            throw new ProductNotFoundException();
+        }
         productRepository.deleteById(id);
     }
 
@@ -48,8 +51,10 @@ public class ProductService {
     }
 
     public Product updateById(Long id, ProductDto productDto) {
+        if(!productRepository.findById(id).isPresent()) {
+            throw new ProductNotFoundException();
+        }
         Product product = productRepository.findById(id).get();
-
         product.setName(productDto.getName());
         product.setDescription(productDto.getDescription());
         product.setPrice(productDto.getPrice());
