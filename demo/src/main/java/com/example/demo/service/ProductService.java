@@ -7,7 +7,11 @@ import com.example.demo.model.Product;
 import com.example.demo.repository.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -61,4 +65,16 @@ public class ProductService {
         return productRepository.save(product);
     }
 
+    public String saveProductImage(Long productId, MultipartFile file) throws Exception {
+        String folder = "demo/images/";
+        String fileName = file.getOriginalFilename();
+        Path folderPath = Paths.get(folder);
+        Path filePath = folderPath.resolve(fileName);
+        Files.write(filePath, file.getBytes());
+        Product product = productRepository.findById(productId).orElseThrow();
+        product.setImageUrl("/images/" + fileName);
+        productRepository.save(product);
+
+        return product.getImageUrl();
+    }
 }

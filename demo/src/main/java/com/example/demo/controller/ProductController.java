@@ -12,6 +12,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -63,7 +64,7 @@ public class ProductController {
     }
 
     @GetMapping("/all")
-    public ResponseEntity<List <ProductDto>> getAllProducts() {
+    public ResponseEntity<List<ProductDto>> getAllProducts() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 
         List<ProductDto> products = productService.getAllProducts();
@@ -80,5 +81,19 @@ public class ProductController {
         productService.updateById(id, productDto);
 
         return ResponseEntity.ok(productDto);
+    }
+
+    @PostMapping("/{id}/upload-image")
+    public ResponseEntity<?> uploadImage(@PathVariable Long id,
+                                         @RequestParam("image")MultipartFile file) {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        User user = (User) authentication.getPrincipal();
+
+        try{
+            String imageUrl = productService.saveProductImage(id, file);
+            return ResponseEntity.ok(imageUrl);
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Ошибка при загрузке изображения!");
+        }
     }
 }
