@@ -84,16 +84,13 @@ public class ProductController {
     }
 
     @PostMapping("/{id}/upload-image")
-    public ResponseEntity<?> uploadImage(@PathVariable Long id,
-                                         @RequestParam("image")MultipartFile file) {
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        User user = (User) authentication.getPrincipal();
+    public ResponseEntity<?> updateAvatarUrl(@PathVariable Long id,
+                                             @RequestParam("file") MultipartFile imageUrlRequest)  throws Exception {
+        productService.uploadImage(id, imageUrlRequest);
 
-        try{
-            String imageUrl = productService.saveProductImage(id, file);
-            return ResponseEntity.ok(imageUrl);
-        } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Ошибка при загрузке изображения!");
-        }
+        return ResponseEntity.ok(new SuccessResponse(
+                "Изображение обновлено!",
+                HttpStatus.OK
+        ));
     }
 }

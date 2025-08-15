@@ -9,16 +9,18 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
+
 import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
 public class ProductService {
+
     @Autowired
     private ProductRepository productRepository;
+
+    @Autowired
+    private LocalStorageService localStorageService;
 
     public Product save(Product product) {
         return productRepository.save(product);
@@ -49,6 +51,10 @@ public class ProductService {
                 .collect(Collectors.toList());
     }
 
+    public Product getProductById(Long id) {
+        return productRepository.findById(id).orElseThrow(ProductNotFoundException::new);
+    }
+
     public ProductDto toDTO(Product product) {
         UserDto userDto = new UserDto(product.getCreateUser());
         return new ProductDto(product);
@@ -65,16 +71,27 @@ public class ProductService {
         return productRepository.save(product);
     }
 
-    public String saveProductImage(Long productId, MultipartFile file) throws Exception {
-        String folder = "demo/images/";
-        String fileName = file.getOriginalFilename();
-        Path folderPath = Paths.get(folder);
-        Path filePath = folderPath.resolve(fileName);
-        Files.write(filePath, file.getBytes());
+    public void uploadImage(Long productId, MultipartFile file) throws Exception {
         Product product = productRepository.findById(productId).orElseThrow();
-        product.setImageUrl("/images/" + fileName);
-        productRepository.save(product);
 
-        return product.getImageUrl();
+        String originalFilename = file.getOriginalFilename();
+        String extension = "";
+
+        if (originalFilename != null && originalFilename.contains(".")) {
+            extension = originalFilename.substring(originalFilename.lastIndexOf("."));
+        } else {
+            throw new Exception("Неверный формат файла");
+        }
+
+        String contentType = file.getContentType();
+        if (contentType == null || !contentType.startsWith("image/")) {
+            throw new Exception("Можно загружать только изображения!");
+        }
+
+        String filename = "image_product_" + product.getId() + "_" + System.currentTimeMillis() + extension;
+        String fileUrl = localStorageService.uploadFile(file, filename);
+
+        product.setImageUrl("http://localhost:8080/uploads/products/" + filename);
+        productRepository.save(product);
     }
 }
