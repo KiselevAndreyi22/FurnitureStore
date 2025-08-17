@@ -3,6 +3,8 @@ package com.example.demo.dto.response;
 import com.example.demo.model.Product;
 import lombok.Data;
 
+import java.util.List;
+
 @Data
 public class ProductDto {
     private Long id;
@@ -10,6 +12,7 @@ public class ProductDto {
     private String description;
     private Double price;
     private String imageUrl;
+    private List<ProductCategoryDto> categories;
 
     public ProductDto() {}
 
@@ -19,6 +22,10 @@ public class ProductDto {
         this.description = product.getDescription();
         this.price = product.getPrice();
         this.imageUrl = product.getImageUrl();
+        this.categories = product.getCategories()
+                .stream()
+                .map(ProductCategoryDto::new)
+                .toList();
     }
 
 }

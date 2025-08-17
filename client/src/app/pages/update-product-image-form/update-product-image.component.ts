@@ -26,14 +26,6 @@ export class UploadImageFormComponent{
   selectedFile: File | null = null;
   productId: number | null = null;
 
-  ngOnInit(): void {
-    // Получаем id из параметров маршрута
-    this.route.paramMap.subscribe(params => {
-      const id = params.get('id');
-      this.productId = id ? +id : null; // Преобразуем строку в число
-    });
-  }
-
   onFileSelected(event: Event): void {
     const input = event.target as HTMLInputElement;
     if (input.files && input.files.length > 0) {

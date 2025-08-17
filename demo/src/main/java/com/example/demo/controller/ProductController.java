@@ -4,6 +4,7 @@ import com.example.demo.dto.request.CreateProductRequest;
 import com.example.demo.dto.response.ProductDto;
 import com.example.demo.dto.response.SuccessResponse;
 import com.example.demo.model.Product;
+import com.example.demo.model.ProductCategory;
 import com.example.demo.model.User;
 import com.example.demo.service.ProductService;
 import lombok.RequiredArgsConstructor;
@@ -28,14 +29,22 @@ public class ProductController {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         User user = (User) authentication.getPrincipal();
 
+        List<ProductCategory> categories = createProductRequest.getCategories();
+
         Product product = Product.builder()
                 .name(createProductRequest.getName())
                 .description(createProductRequest.getDescription())
                 .price(createProductRequest.getPrice())
                 .createUser(user)
                 .imageUrl("http://localhost:8080/uploads/products/default.png")
+                .categories(createProductRequest.getCategories())
                 .build();
 
+        for (ProductCategory category : categories) {
+            category.setProduct(product);
+        }
+
+        product.setCategories(categories);
         productService.create(product);
 
         ProductDto productDto = productService.toDTO(product);
