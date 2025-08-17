@@ -20,7 +20,8 @@ export class ProductFormComponent{
   constructor(private productService: ProductService) {}
 
   onSubmit(){
-    this.productService.createProduct(this.product).subscribe(response => {alert('Продукт создан!');
+    this.productService.createProduct(this.product).subscribe(
+      response => {alert('Продукт создан!');
     console.log(response);
     }, error => {
       alert('Ошибка при создании продукта');

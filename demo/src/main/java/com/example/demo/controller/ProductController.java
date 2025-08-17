@@ -33,7 +33,7 @@ public class ProductController {
                 .description(createProductRequest.getDescription())
                 .price(createProductRequest.getPrice())
                 .createUser(user)
-                .imageUrl("http://localhost:8080/default.png")
+                .imageUrl("http://localhost:8080/uploads/products/default.png")
                 .build();
 
         productService.create(product);
@@ -44,11 +44,10 @@ public class ProductController {
 
     @DeleteMapping("/{id}")
     public ResponseEntity<?> deleteProductById(@PathVariable Long id) throws Exception {
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 
         productService.deleteById(id);
 
-        return ResponseEntity.ok(new SuccessResponse("Проект удален", HttpStatus.OK));
+        return ResponseEntity.ok(new SuccessResponse("Продукт удален", HttpStatus.OK));
     }
 
     @GetMapping("/me")
@@ -65,7 +64,6 @@ public class ProductController {
 
     @GetMapping("/all")
     public ResponseEntity<List<ProductDto>> getAllProducts() {
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 
         List<ProductDto> products = productService.getAllProducts();
         if (products == null) {
@@ -76,15 +74,14 @@ public class ProductController {
 
     @PutMapping("/{id}")
     public ResponseEntity<ProductDto> updateProduct(@PathVariable Long id, @RequestBody ProductDto productDto) throws Exception {
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        User user = (User) authentication.getPrincipal();
+
         productService.updateById(id, productDto);
 
         return ResponseEntity.ok(productDto);
     }
 
     @PostMapping("/{id}/upload-image")
-    public ResponseEntity<?> updateAvatarUrl(@PathVariable Long id,
+    public ResponseEntity<?> updateImageUrl(@PathVariable Long id,
                                              @RequestParam("file") MultipartFile imageUrlRequest)  throws Exception {
         productService.uploadImage(id, imageUrlRequest);
 

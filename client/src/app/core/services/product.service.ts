@@ -30,4 +30,11 @@ export class ProductService {
   updateProduct(id: number, productForm: IProductUpdate): Observable<any>{
     return this.http.put<IProductUpdate>(`${this.baseApiUrl}/${id}`, productForm);
   }
+
+  uploadImage(productId: number, file: File): Observable<any> {
+    const formData = new FormData();
+    formData.append('file', file);
+    const url = `${this.baseApiUrl}/${productId}/upload-image`;
+    return this.http.post(url, formData);
+  }
 }
