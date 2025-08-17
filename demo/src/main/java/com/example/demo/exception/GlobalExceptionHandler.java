@@ -27,4 +27,13 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
         );
         return new ResponseEntity<>(errorResponse, errorResponse.getStatus());
     }
+
+    @ExceptionHandler(UknownFileFormatException.class)
+    public ResponseEntity<Object> handleUknownFileFormatException(UknownFileFormatException e) {
+        ErrorResponse errorResponse = new ErrorResponse(
+                "Имя пользователя или email не найдены!",
+                HttpStatus.NOT_FOUND
+        );
+        return new ResponseEntity<>(errorResponse, errorResponse.getStatus());
+    }
 }

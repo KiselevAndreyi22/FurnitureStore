@@ -6,8 +6,8 @@ import lombok.Data;
 
 @Data
 @Entity
-@Table(name = "product_categories")
-public class ProductCategory {
+@Table(name = "product_tags")
+public class ProductTag {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -22,5 +22,5 @@ public class ProductCategory {
     @Column(name = "name")
     private String name;
 
-    public ProductCategory() {}
+    public ProductTag() {}
 }

@@ -38,5 +38,5 @@ public class Product {
     private String imageUrl;
 
     @OneToMany(mappedBy = "product", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<ProductCategory> categories = new ArrayList<>();
+    private List<ProductTag> tags = new ArrayList<>();
 }

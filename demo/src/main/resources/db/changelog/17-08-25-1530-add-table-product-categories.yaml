@@ -1,10 +1,10 @@
 databaseChangeLog:
   - changeSet:
-      id: add-table-product-categories
+      id: add-table-product-tags
       author: kisliashka100
       changes:
         - createTable:
-            tableName: product_categories
+            tableName: product_tags
             columns:
               - column:
                   name: id
