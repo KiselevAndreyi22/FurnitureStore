@@ -1,6 +1,6 @@
 package com.example.demo.dto.request;
 
-import com.example.demo.model.ProductCategory;
+import com.example.demo.model.ProductTag;
 import lombok.Data;
 
 import java.util.List;
@@ -10,5 +10,5 @@ public class CreateProductRequest {
     private String name;
     private String description;
     private Double price;
-    private List<ProductCategory> categories;
+    private List<ProductTag> tags;
 }

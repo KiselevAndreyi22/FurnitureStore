@@ -12,7 +12,7 @@ public class ProductDto {
     private String description;
     private Double price;
     private String imageUrl;
-    private List<ProductCategoryDto> categories;
+    private List<ProductTagDto> tags;
 
     public ProductDto() {}
 
@@ -22,9 +22,9 @@ public class ProductDto {
         this.description = product.getDescription();
         this.price = product.getPrice();
         this.imageUrl = product.getImageUrl();
-        this.categories = product.getCategories()
+        this.tags = product.getTags()
                 .stream()
-                .map(ProductCategoryDto::new)
+                .map(ProductTagDto::new)
                 .toList();
     }
 
