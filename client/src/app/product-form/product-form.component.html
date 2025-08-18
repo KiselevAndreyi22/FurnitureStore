@@ -11,9 +11,24 @@
   <br>
   <label>
     Цена:
-    <input [(ngModel)]="product.price" name="price" type="number"
-           step="0.01" required>
+    <input [(ngModel)]="product.price" name="price" type="number" step="0.01" required>
   </label>
   <br>
+
+  <!-- Теги -->
+  <label>
+    Теги:
+    <input [(ngModel)]="newTag" name="newTag" placeholder="Введите тег" />
+    <button type="button" (click)="addTag()">Добавить тег</button>
+  </label>
+  <ul>
+    <li *ngFor="let tag of product.tags; let i = index">
+      {{ tag }}
+      <button type="button" (click)="removeTag(i)">Удалить</button>
+    </li>
+  </ul>
+  <br>
+
   <button type="submit">Создать продукт</button>
 </form>
+

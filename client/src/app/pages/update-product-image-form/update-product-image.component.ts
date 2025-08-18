@@ -23,6 +23,15 @@ export class UploadImageFormComponent{
     private route: ActivatedRoute
   ) {}
 
+  ngOnInit() {
+    this.route.paramMap.subscribe(params => {
+      const idParam = params.get('id');
+      if (idParam) {
+        this.productId = +idParam;
+      }
+    });
+  }
+
   selectedFile: File | null = null;
   productId: number | null = null;
 
