@@ -4,6 +4,7 @@ import com.example.demo.dto.request.CreateProductRequest;
 import com.example.demo.dto.response.ProductDto;
 import com.example.demo.dto.response.SuccessResponse;
 import com.example.demo.model.Product;
+import com.example.demo.model.ProductCategory;
 import com.example.demo.model.ProductTag;
 import com.example.demo.model.User;
 import com.example.demo.service.ProductService;
@@ -38,6 +39,7 @@ public class ProductController {
                 .createUser(user)
                 .imageUrl("http://localhost:8080/uploads/products/default.png")
                 .tags(createProductRequest.getTags())
+                .category(ProductCategory.SHELFS)
                 .build();
 
         for (ProductTag tag : tags) {

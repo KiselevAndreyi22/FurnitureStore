@@ -39,4 +39,8 @@ public class Product {
 
     @OneToMany(mappedBy = "product", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<ProductTag> tags = new ArrayList<>();
+
+    @Column(name="category")
+    @Enumerated(EnumType.STRING)
+    private ProductCategory category;
 }
