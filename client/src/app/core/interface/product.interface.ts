@@ -10,5 +10,6 @@ export interface IProductUpdate{
   id?: number;
   name?: string,
   description?: string,
+  category?: string,
   price?: number
 }

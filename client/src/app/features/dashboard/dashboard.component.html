@@ -26,6 +26,7 @@
       <h3>{{ productDto.name }}</h3>
       <p>{{ productDto.description }}</p>
       <p><b>Цена:</b> {{ productDto.price }}</p>
+      <p><b>Раздел:</b> {{ productDto.category }}</p>
       <button [routerLink]="['/upload-image', productDto.id]">Изменить фото</button>
       <button [routerLink]="['/update-product', productDto.id]">Редактировать данные</button>
       <br>

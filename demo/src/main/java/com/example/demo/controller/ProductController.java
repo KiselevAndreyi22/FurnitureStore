@@ -39,7 +39,7 @@ public class ProductController {
                 .createUser(user)
                 .imageUrl("http://localhost:8080/uploads/products/default.png")
                 .tags(createProductRequest.getTags())
-                .category(ProductCategory.SHELFS)
+                .category(ProductCategory.ALL)
                 .build();
 
         for (ProductTag tag : tags) {

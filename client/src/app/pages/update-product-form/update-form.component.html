@@ -10,6 +10,11 @@
   </label>
   <br>
   <label>
+    Раздел:
+    <input [(ngModel)]="product.category" name="category" required>
+  </label>
+  <br>
+  <label>
     Цена:
     <input [(ngModel)]="product.price" name="price" type="number"
            step="0.01" required>

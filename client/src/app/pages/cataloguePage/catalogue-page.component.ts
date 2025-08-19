@@ -20,7 +20,8 @@ export class CataloguePageComponent {
 
   loadProducts() {
     this.productService.getAllProducts().subscribe({
-      next: (data) => this.products = data,
+      next: (data) =>
+        this.products = data,
       error: (err) => console.error(err)
     });
   }

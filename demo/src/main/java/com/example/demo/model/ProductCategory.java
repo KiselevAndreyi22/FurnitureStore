@@ -1,5 +1,10 @@
 package com.example.demo.model;
 
 public enum ProductCategory {
-    SHELFS
+    SHELFS,
+    TABLES,
+    SOFAS,
+    BEDS,
+    CHAIRS,
+    ALL
 }

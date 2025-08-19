@@ -14,7 +14,10 @@ import {ActivatedRoute} from '@angular/router';
   standalone: true
 })
 export class UpdateFormComponent{
-  product: IProductUpdate = { id: 0, name: '', description: '', price: 0 };
+  product: IProductUpdate = {
+    id: 0, name: '',
+    description: '',
+    price: 0};
   productId!: number;
 
   constructor(
