@@ -37,4 +37,8 @@ export class ProductService {
     const url = `${this.baseApiUrl}/${productId}/upload-image`;
     return this.http.post(url, formData);
   }
+
+  getProductsByCategory(category: string): Observable<IProduct[]> {
+    return this.http.get<IProduct[]>(`${this.baseApiUrl}/all/${category}`);
+  }
 }
