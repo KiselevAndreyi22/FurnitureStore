@@ -4,6 +4,7 @@ import com.example.demo.dto.response.UserDto;
 import com.example.demo.exception.ProductNotFoundException;
 import com.example.demo.exception.UknownFileFormatException;
 import com.example.demo.model.Product;
+import com.example.demo.model.ProductCategory;
 import com.example.demo.repository.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -46,6 +47,13 @@ public class ProductService {
 
     public List<ProductDto> getAllProducts() {
         List<Product> products = productRepository.findAll();
+        return products.stream()
+                .map(this::toDTO)
+                .collect(Collectors.toList());
+    }
+
+    public List<ProductDto> getAllProductsByCategory(ProductCategory category) {
+        List<Product> products = productRepository.findByProductCategory(category);
         return products.stream()
                 .map(this::toDTO)
                 .collect(Collectors.toList());
@@ -95,4 +103,5 @@ public class ProductService {
         product.setImageUrl("http://localhost:8080/uploads/products/" + filename);
         productRepository.save(product);
     }
+
 }

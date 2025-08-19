@@ -83,6 +83,17 @@ public class ProductController {
         return ResponseEntity.ok(products);
     }
 
+    @GetMapping("/all/{category}")
+    public ResponseEntity<List<ProductDto>> getAllProductsByCategory(
+            @PathVariable ProductCategory category) {
+
+        List<ProductDto> products = productService.getAllProductsByCategory(category);
+        if (products == null) {
+            products = new ArrayList<>();
+        }
+        return ResponseEntity.ok(products);
+    }
+
     @PutMapping("/{id}")
     public ResponseEntity<ProductDto> updateProduct(@PathVariable Long id, @RequestBody ProductDto productDto) throws Exception {
 

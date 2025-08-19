@@ -1,6 +1,8 @@
 import { Component } from '@angular/core'
 import { ProductService} from '../core/services/product.service';
 import {FormsModule} from '@angular/forms';
+import { NgFor } from '@angular/common';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-product-form',
@@ -18,13 +20,12 @@ export class ProductFormComponent {
     tags: [] as string[]
   };
 
-  newTag = ''; // Для ввода нового тега
+  newTag = '';
 
   constructor(private productService: ProductService) {}
 
   addTag() {
     const tag = this.newTag.trim();
-    // Проверка на пустоту и дубликаты
     if (tag && !this.product.tags.includes(tag)) {
       this.product.tags.push(tag);
       this.newTag = '';
