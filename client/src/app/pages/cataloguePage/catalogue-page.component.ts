@@ -31,9 +31,12 @@ export class CataloguePageComponent {
   }
 
   loadProducts(category: ProductCategory) {
+    if(this.selectedCategory == 'ALL' || this.selectedCategory == null) {
+      this.loadAllProducts()
+    }
     this.productService.getProductsByCategory(category).subscribe(
       (data) => this.products = data,
-      (error) => console.error('Ошибка при получении товаров:', error)
+      (error) => console.error('Ошибка при получении товаров:', error),
     );
   }
 
@@ -54,5 +57,16 @@ export class CataloguePageComponent {
         console.error('Ошибка при удалении:', err);
       }
     });
+  }
+
+  putInCart(id: number){
+    this.productService.putInCart(id).subscribe({
+      next: () => {
+        console.log('Товар добавлен в корзину!');
+      },
+      error: (err) => {
+        console.error('Ошибка при добавлении:', err);
+      }
+    })
   }
 }

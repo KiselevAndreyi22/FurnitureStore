@@ -3,10 +3,8 @@ package com.example.demo.controller;
 import com.example.demo.dto.request.CreateProductRequest;
 import com.example.demo.dto.response.ProductDto;
 import com.example.demo.dto.response.SuccessResponse;
-import com.example.demo.model.Product;
-import com.example.demo.model.ProductCategory;
-import com.example.demo.model.ProductTag;
-import com.example.demo.model.User;
+import com.example.demo.model.*;
+import com.example.demo.service.CartService;
 import com.example.demo.service.ProductService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -24,6 +22,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class ProductController {
     private final ProductService productService;
+    private final CartService cartService;
 
     @PostMapping("/create")
     public ResponseEntity<ProductDto> createProduct(@RequestBody CreateProductRequest createProductRequest) throws Exception {
@@ -111,5 +110,31 @@ public class ProductController {
                 "Изображение обновлено!",
                 HttpStatus.OK
         ));
+    }
+
+    @PostMapping("/{id}/put-in-cart")
+    public ResponseEntity<?> putInCart(@PathVariable Long id) throws Exception {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        User user = (User) authentication.getPrincipal();
+
+        Cart cart = Cart.builder()
+                .product(productService.getProductById(id))
+                .putByUser(user)
+                .build();
+
+        cartService.putProduct(cart);
+
+        return ResponseEntity.ok(new SuccessResponse(
+                "Товар добавлен в корзину!",
+                HttpStatus.OK
+        ));
+    }
+
+    @DeleteMapping("/{id}/delete-from-cart")
+    public ResponseEntity<?> deleteFromCart(@PathVariable Long id) throws Exception {
+
+        cartService.deleteById(id);
+
+        return ResponseEntity.ok(new SuccessResponse("Продукт удален из корзины!", HttpStatus.OK));
     }
 }

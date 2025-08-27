@@ -25,7 +25,8 @@
          height="150"/>
     <h3>{{ product.name }}</h3>
     <p>{{ product.description }}</p>
-    <p>{{ product.category }}</p>
+    <!--<p>{{ product.category }}</p>-->
     <p><b>Цена:</b> {{ product.price }}</p>
+    <button (click)="putInCart(product.id)">Добавить в корзину</button>
   </div>
 </div>

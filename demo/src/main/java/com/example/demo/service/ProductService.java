@@ -23,10 +23,6 @@ public class ProductService {
     @Autowired
     private LocalStorageService localStorageService;
 
-    public Product save(Product product) {
-        return productRepository.save(product);
-    }
-
     public Product create(Product product) {
         return productRepository.save(product);
     }

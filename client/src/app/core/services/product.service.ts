@@ -41,4 +41,9 @@ export class ProductService {
   getProductsByCategory(category: string): Observable<IProduct[]> {
     return this.http.get<IProduct[]>(`${this.baseApiUrl}/all/${category}`);
   }
+
+  putInCart(id: number): Observable<any>{
+    return this.http.post(`${this.baseApiUrl}/${id}/put-in-cart`, id);
+  }
+
 }

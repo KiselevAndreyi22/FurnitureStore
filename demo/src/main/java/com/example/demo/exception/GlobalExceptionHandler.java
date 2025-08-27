@@ -36,4 +36,13 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
         );
         return new ResponseEntity<>(errorResponse, errorResponse.getStatus());
     }
+
+    @ExceptionHandler(ProductInCartNotFoundException.class)
+    public ResponseEntity<Object> handleProductInCartNotFoundException(ProductInCartNotFoundException e) {
+        ErrorResponse errorResponse = new ErrorResponse(
+                "Данного продукта нет в корзине!",
+                HttpStatus.NOT_FOUND
+        );
+        return new ResponseEntity<>(errorResponse, errorResponse.getStatus());
+    }
 }
