@@ -13,3 +13,7 @@ export interface IProductUpdate{
   category?: string,
   price?: number
 }
+
+export interface IProductCart{
+  product: IProduct
+}

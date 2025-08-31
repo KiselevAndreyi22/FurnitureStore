@@ -6,8 +6,9 @@ import { LoginPageComponent} from './pages/authPages/loginPages/login-page.compo
 import { LayoutComponent} from './layout/layout.component';
 import { DashboardComponent} from './features/dashboard/dashboard.component';
 import { canActivateAuth } from './core/guards/auth.guard';
-import {CataloguePageComponent} from './pages/cataloguePage/catalogue-page.component';
+import { CataloguePageComponent} from './pages/cataloguePage/catalogue-page.component';
 import { UploadImageFormComponent } from './pages/update-product-image-form/update-product-image.component';
+import { CartPageComponent } from './pages/cartPage/cart-page.component';
 
 export const routes: Routes = [
   {
@@ -18,7 +19,8 @@ export const routes: Routes = [
       { path: 'catalogue', component: CataloguePageComponent },
       { path: 'create-product', component: ProductFormComponent },
       { path: 'update-product/:id', component: UpdateFormComponent },
-      { path: 'upload-image/:id', component: UploadImageFormComponent}
+      { path: 'upload-image/:id', component: UploadImageFormComponent},
+      { path: 'cart', component: CartPageComponent}
     ],
     canActivate: [canActivateAuth],
   },

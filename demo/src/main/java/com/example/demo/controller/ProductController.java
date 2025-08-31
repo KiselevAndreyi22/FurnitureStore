@@ -1,6 +1,7 @@
 package com.example.demo.controller;
 
 import com.example.demo.dto.request.CreateProductRequest;
+import com.example.demo.dto.response.CartDto;
 import com.example.demo.dto.response.ProductDto;
 import com.example.demo.dto.response.SuccessResponse;
 import com.example.demo.model.*;
@@ -136,5 +137,14 @@ public class ProductController {
         cartService.deleteById(id);
 
         return ResponseEntity.ok(new SuccessResponse("Продукт удален из корзины!", HttpStatus.OK));
+    }
+
+    @GetMapping("/cart/")
+    public ResponseEntity<List<CartDto>> getAllProductsFromCart() {
+        List<CartDto> products = cartService.getAllProducts();
+        if (products == null) {
+            products = new ArrayList<>();
+        }
+        return ResponseEntity.ok(products);
     }
 }

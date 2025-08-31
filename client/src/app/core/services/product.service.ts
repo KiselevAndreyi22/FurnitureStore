@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import {IProduct, IProductUpdate} from '../interface/product.interface';
+import {IProduct, IProductCart, IProductUpdate} from '../interface/product.interface';
 
 @Injectable({
   providedIn: 'root',
@@ -44,6 +44,15 @@ export class ProductService {
 
   putInCart(id: number): Observable<any>{
     return this.http.post(`${this.baseApiUrl}/${id}/put-in-cart`, id);
+  }
+
+  deleteFromCart(id: number) {
+    return this.http.delete(`${this.baseApiUrl}/${id}/delete-from-cart`);
+  }
+
+
+  getAllProductsFromCart(): Observable<IProductCart[]> {
+    return this.http.get<IProductCart[]>('http://localhost:8080/api/products/cart/');
   }
 
 }
