@@ -5,9 +5,11 @@ import lombok.Data;
 
 @Data
 public class CartDto {
+    private Long id;
     private ProductDto product;
 
     public CartDto(Cart cart) {
+        this.id = cart.getId();
         this.product = new ProductDto(cart.getProduct());
     }
 }

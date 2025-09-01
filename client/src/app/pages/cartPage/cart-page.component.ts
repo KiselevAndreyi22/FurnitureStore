@@ -31,7 +31,7 @@ export class CartPageComponent {
   deleteProductFromCart(id: number) {
     this.productService.deleteFromCart(id).subscribe({
       next: () => {
-        this.products = this.products.filter(product => product.product.id !== id);
+        this.products = this.products.filter(product => product.id !== id);
       },
       error: (err) => {
         console.error('Ошибка при удалении:', err);

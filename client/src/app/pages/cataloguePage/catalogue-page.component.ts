@@ -48,17 +48,6 @@ export class CataloguePageComponent {
     });
   }
 
-  deleteProduct(id: number) {
-    this.productService.deleteProduct(id).subscribe({
-      next: () => {
-        this.products = this.products.filter(product => product.id !== id);
-      },
-      error: (err) => {
-        console.error('Ошибка при удалении:', err);
-      }
-    });
-  }
-
   putInCart(id: number){
     this.productService.putInCart(id).subscribe({
       next: () => {

@@ -15,5 +15,6 @@ export interface IProductUpdate{
 }
 
 export interface IProductCart{
+  id?: number,
   product: IProduct
 }

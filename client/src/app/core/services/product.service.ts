@@ -46,7 +46,7 @@ export class ProductService {
     return this.http.post(`${this.baseApiUrl}/${id}/put-in-cart`, id);
   }
 
-  deleteFromCart(id: number) {
+  deleteFromCart(id: number){
     return this.http.delete(`${this.baseApiUrl}/${id}/delete-from-cart`);
   }
 
