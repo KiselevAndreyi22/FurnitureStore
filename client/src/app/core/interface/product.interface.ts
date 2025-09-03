@@ -1,11 +1,20 @@
-export interface IProject {
+export interface IProduct {
   id: number;
   name: string;
   description: string;
-  image?: string;
-  tags: { tag: string }[];
-  owner: string;
-  createdAt: string;
-  tasksCount: string;
-  tasksCompleted: string;
+  price: number;
+  imageUrl?: string;
+}
+
+export interface IProductUpdate{
+  id?: number;
+  name?: string,
+  description?: string,
+  category?: string,
+  price?: number
+}
+
+export interface IProductCart{
+  id?: number,
+  product: IProduct
 }

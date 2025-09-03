@@ -1,0 +1,29 @@
+<head class ="own-products">
+  <meta charset="UTF-8">
+  <title>Страница каталога</title>
+</head>
+<body>
+<h1>Каталог</h1>
+<h2>Все объявления</h2>
+<div>
+  <label for="categorySelect">Выберите категорию:</label>
+  <select id="categorySelect" [(ngModel)]="selectedCategory" (change)="onCategoryChange(selectedCategory)">
+    <option *ngFor="let category of categories" [value]="category">{{ category }}</option>
+  </select>
+</div>
+
+<div *ngIf="products.length === 0">
+  Нет товаров в выбранной категории!
+</div>
+<div class="products-list">
+  <div *ngFor="let product of products" class="product-card">
+    <img [src]="product.imageUrl || '/static/default.png'" alt="{{ product.name }}" class="product-image"
+         width="200"
+         height="150"/>
+    <h3>{{ product.name }}</h3>
+    <p>{{ product.description }}</p>
+    <!--<p>{{ product.category }}</p>-->
+    <p><b>Цена:</b> {{ product.price }}</p>
+    <button (click)="putInCart(product.id)">Добавить в корзину</button>
+  </div>
+</div>

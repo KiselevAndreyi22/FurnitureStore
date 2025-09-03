@@ -13,4 +13,25 @@
       </div>
     </section>
   </div>
+  <div class="own-products">
+  <div class="create-product-wrapper">
+    <a [routerLink]="['/create-product']">Создать продукт</a>
+  </div>
+  <h2>Мои объявления</h2>
+  <div class="products-list">
+    <div *ngFor="let productDto of products" class="product-card">
+      <img [src]="productDto.imageUrl || '/uploads/products/default.png'" alt="{{ productDto.name }}" class="product-image"
+           width="200"
+           height="150"/>
+      <h3>{{ productDto.name }}</h3>
+      <p>{{ productDto.description }}</p>
+      <p><b>Цена:</b> {{ productDto.price }}</p>
+      <p><b>Раздел:</b> {{ productDto.category }}</p>
+      <button [routerLink]="['/upload-image', productDto.id]">Изменить фото</button>
+      <button [routerLink]="['/update-product', productDto.id]">Редактировать данные</button>
+      <br>
+      <button (click)="deleteProduct(productDto.id)">Удалить продукт</button>
+    </div>
+</div>
+</div>
 </div>

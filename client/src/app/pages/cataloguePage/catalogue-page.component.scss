@@ -1,0 +1,113 @@
+body {
+  font-family: 'Segoe UI', Arial, sans-serif;
+  background: #f6f8fa;
+  color: #222;
+  margin: 0;
+  padding: 0;
+}
+
+h1 {
+  text-align: center;
+  margin-top: 30px;
+  font-size: 2.5rem;
+  color: #2c3e50;
+}
+
+h2 {
+  margin: 30px auto 30px 35px;
+  font-size: 2rem;
+  font-weight: 700;
+  color: #2c3e50;
+}
+
+p {
+  font-size: 1.1rem;
+}
+
+a {
+  display: inline-block;
+  text-decoration: none;
+  background: #3498db;
+  color: #fff;
+  padding: 10px 24px;
+  border-radius: 8px;
+  margin: 30px auto 30px 35px;
+  transition: background 0.2s;
+  font-weight: 600;
+  box-shadow: 0 1px 5px rgba(52, 152, 219, 0.1);
+
+  &:hover {
+    background: #217dbb;
+  }
+}
+
+div[ngfor] {
+  margin: 30px auto;
+  max-width: 500px;
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 2px 16px rgba(44, 62, 80, 0.06);
+  padding: 24px 32px;
+  transition: box-shadow 0.2s;
+
+  &:hover {
+    box-shadow: 0 4px 24px rgba(44, 62, 80, 0.13);
+  }
+
+  h3 {
+    margin-top: 0;
+    color: #1a73e8;
+    font-size: 1.4rem;
+  }
+
+  p {
+    margin-bottom: 10px;
+    color: #555;
+
+    b {
+      color: #222;
+    }
+  }
+
+  button {
+    background: #e74c3c;
+    color: #fff;
+    border: none;
+    padding: 10px 22px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 1rem;
+    transition: background 0.2s;
+    font-weight: 500;
+    margin-top: 10px;
+
+    &:hover {
+      background: #c0392b;
+    }
+  }
+}
+
+.products-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 24px;
+  margin: 40px auto;
+  max-width: 1200px;
+  justify-content: flex-start;
+}
+
+.product-card {
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 2px 16px rgba(44, 62, 80, 0.06);
+  padding: 24px 32px;
+  min-width: 220px;
+  max-width: 260px;
+  flex: 1 1 220px;
+  transition: box-shadow 0.2s;
+  margin-bottom: 0;
+
+  &:hover {
+    box-shadow: 0 4px 24px rgba(44, 62, 80, 0.13);
+  }
+}

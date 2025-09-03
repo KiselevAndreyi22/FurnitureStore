@@ -1,0 +1,24 @@
+databaseChangeLog:
+  - changeSet:
+      id: add-table-cart
+      author: kisliashka100
+      changes:
+        - createTable:
+            tableName: cart
+            columns:
+              - column:
+                  name: id
+                  type: bigint
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+              - column:
+                  name: product_id
+                  type: bigint
+                  constraints:
+                    nullable: false
+              - column:
+                  name: put_user_id
+                  type: bigint
+                  constraints:
+                    nullable: false

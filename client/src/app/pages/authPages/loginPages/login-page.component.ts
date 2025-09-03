@@ -8,3 +8,4 @@ import { LoginComponent } from '../../../auth/login/login.component';
   styleUrl: './login-page.component.scss',
 })
 export class LoginPageComponent {}
+

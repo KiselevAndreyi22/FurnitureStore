@@ -1,5 +1,6 @@
 package com.example.demo.service;
 
+import com.example.demo.exception.UserNotFoundException;
 import com.example.demo.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -25,7 +26,7 @@ public class UserService implements UserDetailsService {
 
     public User getByUsernameOrEmail(String username, String email) {
         return userRepository.findByUsernameOrEmail(username, email)
-                .orElseThrow(() -> new RuntimeException("Username or email not found"));
+                .orElseThrow(UserNotFoundException::new);
     }
 
     public UserDetailsService userDetailsService() {
@@ -34,7 +35,7 @@ public class UserService implements UserDetailsService {
 
     public User getByUsername(String username) {
         return userRepository.findByUsername(username)
-                .orElseThrow(() -> new RuntimeException("Username not found"));
+                .orElseThrow(UserNotFoundException::new);
     }
 
     public User getCurrentUser() {

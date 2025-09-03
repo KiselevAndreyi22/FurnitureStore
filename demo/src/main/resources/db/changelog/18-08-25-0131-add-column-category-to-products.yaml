@@ -1,0 +1,13 @@
+databaseChangeLog:
+  - changeSet:
+      id: add-category-to-products
+      author: kisliashka100
+    changes:
+      - addColumn:
+          tableName: products
+          columns:
+            - column:
+                name: category
+                type: NVARCHAR(20)
+                constraints:
+                nullable: true

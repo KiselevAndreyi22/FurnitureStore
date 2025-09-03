@@ -1,0 +1,11 @@
+databaseChangeLog:
+  - changeSet:
+      id: add-create-user-id-column-pr
+      author: kisliashka100
+    changes:
+        - addColumn:
+            tableName: products
+            columns:
+              - column:
+                  name: create_user_id
+                  type: bigint

@@ -1,0 +1,20 @@
+databaseChangeLog:
+  - changeSet:
+      id: add-table-product-tags
+      author: kisliashka100
+      changes:
+        - createTable:
+            tableName: product_tags
+            columns:
+              - column:
+                  name: id
+                  type: bigint
+                  constraints:
+                    primaryKey: true
+                  autoIncrement: true
+              - column:
+                  name: product_id
+                  type: bigint
+              - column:
+                  name: name
+                  type: NVARCHAR(100)

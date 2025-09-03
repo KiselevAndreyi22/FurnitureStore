@@ -1,0 +1,18 @@
+<head class ="own-products">
+  <meta charset="UTF-8">
+  <title>Страница каталога</title>
+</head>
+<body>
+<h1>Корзина</h1>
+<div class="products-list">
+  <div *ngFor="let product of products" class="product-card">
+    <img [src]="product.product.imageUrl || '/static/default.png'" alt="{{ product.product.name }}" class="product-image"
+         width="200"
+         height="150"/>
+    <h3>{{ product.product.name }}</h3>
+    <p>{{ product.product.description }}</p>
+    <!--<p>{{ product.category }}</p>-->
+    <p><b>Цена:</b> {{ product.product.price }}</p>
+    <button (click)="deleteProductFromCart(product.id)">Удалить из корзины</button>
+  </div>
+</div>
