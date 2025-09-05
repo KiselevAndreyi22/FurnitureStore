@@ -3,7 +3,6 @@ package com.example.demo.service;
 import com.example.demo.exception.UserNotFoundException;
 import com.example.demo.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.context.SecurityContextHolder;
 import com.example.demo.model.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -36,11 +35,6 @@ public class UserService implements UserDetailsService {
     public User getByUsername(String username) {
         return userRepository.findByUsername(username)
                 .orElseThrow(UserNotFoundException::new);
-    }
-
-    public User getCurrentUser() {
-        var username = SecurityContextHolder.getContext().getAuthentication().getName();
-        return getByUsername(username);
     }
 
     @Override

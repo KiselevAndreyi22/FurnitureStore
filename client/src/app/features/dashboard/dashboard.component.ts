@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import {Router, RouterModule} from '@angular/router';
 import { IUser } from '../../core/interface/user.interface';
 import { AuthService } from '../../core/services/auth.service';
-import { IProfile, ProfileService } from '../../core/services/profile.service';
+import { ProfileService } from '../../core/services/profile.service';
 import {ProductService} from '../../core/services/product.service';
 
 @Component({
@@ -20,23 +20,32 @@ export class DashboardComponent {
     this.authService.logout().subscribe(() => {
       this.router.navigate(['/login']);
     });
-
-    // tap(() => {
-    // })
   }
-  // users: IProfile = {};
-  user: IUser = {
-    name: 'Алексей Иванов',
-    email: 'ivanov@example.com',
-    avatarUrl: 'assets/avatar.jpg',
-  };
 
   products: any[] = [];
 
-  constructor(private productService: ProductService) {}
+  user: IUser | null = null;
+  isLoading = true;
+  error: string | null = null;
+
+  constructor(private productService: ProductService, profileService: ProfileService) {}
 
   ngOnInit() {
+    this.profileService.getMe().subscribe({
+      next: (data) => {
+        this.user = data;
+        this.isLoading = false;
+      },
+      error: (err) => {
+        this.error = 'Ошибка загрузки профиля!';
+        this.isLoading = false;
+      }
+    });
     this.loadProducts();
+  }
+
+  loadUser(){
+    this.profileService.getMe()
   }
 
   loadProducts() {
