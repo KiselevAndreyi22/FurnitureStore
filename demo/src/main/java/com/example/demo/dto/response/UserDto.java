@@ -9,11 +9,13 @@ import lombok.Data;
 public class UserDto {
     private String username;
     private String email;
+    private String avatarUrl;
 
     public UserDto() {}
 
     public UserDto(User user) {
         this.username = user.getUsername();
         this.email = user.getEmail();
+        this.avatarUrl = user.getAvatarUrl();
     }
 }

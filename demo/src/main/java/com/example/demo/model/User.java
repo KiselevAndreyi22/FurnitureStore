@@ -32,6 +32,9 @@ public class User implements UserDetails {
     @Column(name = "email", unique = true, nullable = false)
     private String email;
 
+    @Column(name = "avatar_url")
+    private String avatarUrl = "uploads/avatars/default.jpg";
+
     @Enumerated(EnumType.STRING)
     @Column(name = "role", nullable = false)
     private Role role;

@@ -45,4 +45,22 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
         );
         return new ResponseEntity<>(errorResponse, errorResponse.getStatus());
     }
+
+    @ExceptionHandler(IdNotFoundException.class)
+    public ResponseEntity<ErrorResponse> handleIdNotFound(IdNotFoundException ex) {
+        ErrorResponse errorResponse = new ErrorResponse(
+                "ID не найден",
+                HttpStatus.NOT_FOUND
+        );
+        return new ResponseEntity<>(errorResponse, errorResponse.getStatus());
+    }
+
+    @ExceptionHandler(UploadFileIsEmptyException.class)
+    public ResponseEntity<ErrorResponse> handleUploadFileIsEmpty(UploadFileIsEmptyException ex) {
+        ErrorResponse errorResponse = new ErrorResponse(
+                "Файл пуст",
+                HttpStatus.BAD_REQUEST
+        );
+        return new ResponseEntity<>(errorResponse, errorResponse.getStatus());
+    }
 }

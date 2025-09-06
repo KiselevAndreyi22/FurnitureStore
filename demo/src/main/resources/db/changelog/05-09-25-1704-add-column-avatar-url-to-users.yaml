@@ -1,0 +1,13 @@
+databaseChangeLog:
+  - changeSet:
+      id: add-avatar-url-to-users
+      author: kisliashka100
+    changes:
+      - addColumn:
+          tableName: users
+          columns:
+            - column:
+                name: avatar_url
+                type: NVARCHAR(100)
+                constraints:
+                nullable: true

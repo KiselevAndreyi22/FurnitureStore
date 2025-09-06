@@ -1,5 +1,7 @@
 package com.example.demo.service;
 
+import com.example.demo.exception.UknownFileFormatException;
+import com.example.demo.exception.UploadFileIsEmptyException;
 import com.example.demo.exception.UserNotFoundException;
 import com.example.demo.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,12 +10,16 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 @Service
 public class UserService implements UserDetailsService {
 
     @Autowired
     private UserRepository userRepository;
+
+    @Autowired
+    private LocalStorageService localStorageService;
 
     public User save(User user) {
         return userRepository.save(user);
@@ -46,5 +52,31 @@ public class UserService implements UserDetailsService {
             return userRepository.findByUsername(usernameOrEmail)
                     .orElseThrow(() -> new UsernameNotFoundException(usernameOrEmail));
         }
+    }
+
+    public void updateAvatar(Long userId, MultipartFile file) {
+        User user = userRepository.findById(userId).
+                orElseThrow();
+
+        String originalFilename = file.getOriginalFilename();
+        String extension = "";
+
+        if (originalFilename != null && originalFilename.contains(".")) {
+            extension = originalFilename.substring(originalFilename.lastIndexOf("."));
+        } else {
+            throw new UknownFileFormatException();
+        }
+
+        String contentType = file.getContentType();
+        if (contentType == null || !contentType.startsWith("image/")) {
+            throw new UploadFileIsEmptyException();
+        }
+
+        String filename = "image_avatar_" + user.getId() + "_" + System.currentTimeMillis() + extension;
+        String fileUrl = localStorageService.uploadFile(file, filename);
+
+        user.setAvatarUrl("http://localhost:8080/uploads/products/" + filename);
+        userRepository.save(user);
+
     }
 }

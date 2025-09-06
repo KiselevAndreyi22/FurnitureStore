@@ -28,6 +28,8 @@ export class DashboardComponent {
   isLoading = true;
   error: string | null = null;
 
+  defaultAvatarUrl = 'http://localhost:8080/uploads/products/default.png';
+
   constructor(private productService: ProductService, profileService: ProfileService) {}
 
   ngOnInit() {

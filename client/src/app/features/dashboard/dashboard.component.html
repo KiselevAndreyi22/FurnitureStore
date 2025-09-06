@@ -3,7 +3,7 @@
     <section class="dashboard__section dashboard__section--user">
       <div class="user-card" *ngIf="user">
         <div class="user-card__info">
-          <img [src]="user.avatarUrl" alt="Аватар" class="user-card__avatar" />
+          <img [src]="user.avatarUrl ? user.avatarUrl : defaultAvatarUrl" alt="Аватар" class="user-card__avatar" />
           <div class="user-card__text">
             <div class="user-card__name">{{ user.username }}</div>
             <div class="user-card__email">{{ user.email }}</div>

@@ -1,7 +1,7 @@
 export interface IUser {
   username: string;
   email: string;
-  avatarUrl: string;
+  avatarUrl?: string;
 }
 
 export interface IUserStats {
