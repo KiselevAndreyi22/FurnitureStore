@@ -1,0 +1,23 @@
+<h3>Настройки</h3>
+<div class="dashboard__main">
+  <section class="dashboard__section dashboard__section--user">
+    <div class="user-card" *ngIf="user">
+      <div class="user-card__info">
+        <img [src]="user.avatarUrl ? user.avatarUrl : defaultAvatarUrl" alt="Аватар" class="user-card__avatar" />
+        <div class="user-card__text">
+          <div class="user-card__name">{{ user.username }}</div>
+          <div class="user-card__email">{{ user.email }}</div>
+          <h1 (click)="logout()">Выйти</h1>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
+<form (ngSubmit)="onSubmit()">
+  <label>
+    Изменить аватар:
+    <input type="file" (change)="onFileSelected($event)" accept="image/*">
+  </label>
+  <br>
+  <button type="submit">Загрузить изображение</button>
+</form>

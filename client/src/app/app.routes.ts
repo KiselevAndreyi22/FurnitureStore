@@ -9,6 +9,7 @@ import { canActivateAuth } from './core/guards/auth.guard';
 import { CataloguePageComponent} from './pages/cataloguePage/catalogue-page.component';
 import { UploadImageFormComponent } from './pages/update-product-image-form/update-product-image.component';
 import { CartPageComponent } from './pages/cartPage/cart-page.component';
+import {OptionsFormComponent} from './pages/optionsPage/profile-options.component';
 
 export const routes: Routes = [
   {
@@ -20,7 +21,8 @@ export const routes: Routes = [
       { path: 'create-product', component: ProductFormComponent },
       { path: 'update-product/:id', component: UpdateFormComponent },
       { path: 'upload-image/:id', component: UploadImageFormComponent},
-      { path: 'cart', component: CartPageComponent}
+      { path: 'cart', component: CartPageComponent},
+      { path: 'options', component: OptionsFormComponent}
     ],
     canActivate: [canActivateAuth],
   },
