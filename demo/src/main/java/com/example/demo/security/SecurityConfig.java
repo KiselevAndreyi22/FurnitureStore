@@ -44,6 +44,7 @@ public class SecurityConfig {
                         .requestMatchers("/api/products/**").authenticated()
                         .requestMatchers("/api/user/**").authenticated()
                         .requestMatchers("/uploads/products/**").permitAll()
+                        .requestMatchers("/mail/**").permitAll()
                         .anyRequest().authenticated()
                 )
                 .sessionManagement(sessionManagement -> sessionManagement
