@@ -1,8 +1,6 @@
 package com.example.demo.controller;
 
 import com.example.demo.dto.request.UpdatePasswordRequest;
-import com.example.demo.model.User;
-import com.example.demo.security.SecurityUtil;
 import com.example.demo.service.DataRecoveryService;
 import com.example.demo.service.VerificationService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,12 +18,12 @@ public class DataRecoveryController {
 
 
     @PostMapping("/update-password")
-    public String verifyMail(@RequestBody UpdatePasswordRequest verifyEmailCodeRequest) {
-        User user = SecurityUtil.getCurrentUser();
+    public String verifyMail(@RequestBody UpdatePasswordRequest request) {
+        String email = request.getEmail();
 
-        boolean verify = verificationService.verifyCode(user.getEmail(), verifyEmailCodeRequest.getCode());
+        boolean verify = verificationService.verifyCode(email, request.getCode());
         if (verify) {
-            dataRecoveryService.updatePassword(user.getId(), verifyEmailCodeRequest.getPassword());
+            dataRecoveryService.updatePassword(email, request.getPassword());
             return "Подтверждено и пароль успешно изменён!";
         } else {
             return "Неверный код подтверждения!";

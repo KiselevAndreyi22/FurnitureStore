@@ -1,0 +1,103 @@
+.auth__form {
+
+  h1 {
+    font-size: 2rem;
+    text-align: center;
+    margin-bottom: 8px;
+    color: #2d2e32;
+    font-weight: 700;
+  }
+
+  p {
+    text-align: center;
+    color: #666;
+    font-size: 1rem;
+    margin-bottom: 8px;
+  }
+
+  label {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    font-size: 1rem;
+    color: #3b3d40;
+
+    input {
+      padding: 10px 12px;
+      border: 1.5px solid #e0e4ea;
+      border-radius: 8px;
+      font-size: 1rem;
+      background: #fafbfc;
+      transition: border-color 0.2s;
+
+      &:focus {
+        border-color: #4285f4;
+        outline: none;
+        background: #fff;
+      }
+    }
+  }
+
+  button {
+    margin-top: 8px;
+    padding: 12px 0;
+    background: linear-gradient(90deg, #4285f4 0%, #6b9cff 100%);
+    color: #fff;
+    font-size: 1.1rem;
+    font-weight: 600;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    box-shadow: 0 2px 8px rgba(66,133,244,0.08);
+    transition: background 0.2s;
+
+    &:hover {
+      background: linear-gradient(90deg, #357ae8 0%, #5a8df9 100%);
+    }
+
+    &:active {
+      background: #4285f4;
+    }
+  }
+
+  h4 {
+    margin: 0;
+    font-size: 0.95rem;
+    text-align: center;
+    color: #6e7a8a;
+    font-weight: 400;
+
+    a {
+      color: #4285f4;
+      text-decoration: underline;
+      cursor: pointer;
+      font-weight: 500;
+      margin-left: 4px;
+      transition: color 0.2s;
+
+      &:hover {
+        color: #357ae8;
+      }
+    }
+  }
+
+  // Сообщение об ошибке или успешном действии
+  div[ng-reflect-ng-if] {
+    text-align: center;
+    margin-top: 12px;
+    font-size: 1rem;
+    color: #c0392b;
+
+  }
+}
+
+// Для адаптивности
+@media (max-width: 500px) {
+  .auth__form {
+    padding: 18px 6px;
+    max-width: 98vw;
+  }
+  h1 {
+    font-size: 1.4rem;
+  }
+}

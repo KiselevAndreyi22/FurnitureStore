@@ -15,8 +15,8 @@ public class DataRecoveryService {
     @Autowired
     private PasswordEncoder passwordEncoder;
 
-    public void updatePassword(Long userId, String password) {
-        User user = userRepository.findById(userId).
+    public void updatePassword(String email, String password) {
+        User user = userRepository.findByEmail(email).
                 orElseThrow();
 
         user.setPassword(passwordEncoder.encode(password));

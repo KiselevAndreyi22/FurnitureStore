@@ -35,7 +35,6 @@ public class CartService {
     }
 
     public CartDto toDTO(Cart cart) {
-        //UserDto userDto = new UserDto(cart.getCreateUser());
         return new CartDto(cart);
     }
 }

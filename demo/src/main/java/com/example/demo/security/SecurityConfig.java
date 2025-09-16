@@ -45,6 +45,7 @@ public class SecurityConfig {
                         .requestMatchers("/api/user/**").authenticated()
                         .requestMatchers("/uploads/products/**").permitAll()
                         .requestMatchers("/mail/**").permitAll()
+                        .requestMatchers("/recovery/**").permitAll()
                         .anyRequest().authenticated()
                 )
                 .sessionManagement(sessionManagement -> sessionManagement
