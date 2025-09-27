@@ -63,4 +63,22 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
         );
         return new ResponseEntity<>(errorResponse, errorResponse.getStatus());
     }
+
+    @ExceptionHandler(InvalidVerifyCodeException.class)
+    public ResponseEntity<ErrorResponse> handleInvalidVerifyCode(InvalidVerifyCodeException ex) {
+        ErrorResponse errorResponse = new ErrorResponse(
+                "Неверный код подтверждения",
+                HttpStatus.BAD_REQUEST
+        );
+        return new ResponseEntity<>(errorResponse, errorResponse.getStatus());
+    }
+
+    @ExceptionHandler(AttemptsExceededException.class)
+    public ResponseEntity<ErrorResponse> handleAttemptsExceededException(AttemptsExceededException ex) {
+        ErrorResponse errorResponse = new ErrorResponse(
+                "Закончились попытки для подтверждения",
+                HttpStatus.UNAUTHORIZED
+        );
+        return new ResponseEntity<>(errorResponse, errorResponse.getStatus());
+    }
 }

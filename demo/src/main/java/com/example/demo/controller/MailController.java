@@ -15,14 +15,6 @@ public class MailController {
     @Autowired
     private DataRecoveryService dataRecoveryService;
 
-    @PostMapping("/send")
-    public String sendMail(@RequestParam String to,
-                           @RequestParam String subject,
-                           @RequestParam String body) {
-        emailService.sendSimpleEmail(to, subject, body);
-        return "Письмо отправлено!";
-    }
-
     @PostMapping("/send-verify")
     public String sendMailVerify(@RequestParam String to){
         emailService.sendVerificationEmail(to);
